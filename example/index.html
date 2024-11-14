@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .globe {
+        cursor: move relative;
+      }
+
+      .hint {
+        @apply max-w-[470px] w-full ml-auto -mt-36 z-40 relative;
+        @apply text-left bg-white shadow-md rounded-md;
+
+        &-text {
+          @apply p-2;
+        }
+
+        svg {
+          @apply inline-block;
+        }
+      }
+
+      .tooltip {
+        position: absolute;
+        display: none;
+        background-color: #fff;
+        padding: 8px;
+        text-align: left;
+        border: solid #fff 1px;
+        color: black;
+      }
+
+      #globe_svg {
+        z-index: 20;
+      }
+
+      #globe_svg .water {
+        cursor: move;
+        fill: #BCDAF3;
+        fill: radial-gradient(346.58px at 50% 50%, #FFFFFF 0%, #BCDAF3 100%);
+      }
+
+      #globe_svg .land {
+        cursor: move;
+
+        fill: #5CD176;
+      }
+
+      #globe_svg .land.active,
+      #globe_svg .land:hover {
+        fill: #A7C2D3;
+        stroke-width: 0px;
+        outline: none;
+      }
+
+      #globe_svg .land:focus {
+        outline: none;
+      }
+
+      .land.has-data {
+        fill: #141F78;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="max-w-6xl mx-auto">
+      <div 
+        x-data="{
+          active: 'intro',
+          globeOptions: {
+            countries: [
+              'Philippines'
+            ]
+          },
+          showCountry(which) {
+            if(this.globeOptions.countries.includes(which)) {
+              this.active = which;
+              return;
+            }
+
+            this.active = 'intro';
+          }
+        }"
+        x-globe="globeOptions"
+        @globe="console.log($event.detail)"
+        >
+
+        <div class="w-1/2">
+          <div class="globe-content" x-show="active == 'intro'">
+            <h1>Testing</h1>
+          </div>
+        </div>
+        <div class="w-1/2">
+          <div class="globe">
+            <svg id="globe_svg"></svg>
+
+            <div class="hint pointer-events-none">
+              <div class="hint-text prose">
+                <div class="flex items-center">
+                  <img class="m-4" src="{!!  get_stylesheet_directory_uri() . '/globe3d/hand.svg' !!}">
+                  <p class="text-lg">Click &amp; Drag to Explore Globe</p>
+                </div>
+
+                <p class="font-sans px-4 pb-2">Click a continent to learn more about it's available programs</p>
+              </div>
+            </div>
+            <div class="tooltip"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script defer type="module">
+      import Alpine from "https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js";
+
+      import globe from "../main.ts";
+
+      Alpine.plugin(globe)
+
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
+  </body>
+</html>
