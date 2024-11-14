@@ -1,9 +1,10 @@
+///
 import type { Alpine as AlpineInstance } from "npm:alpinejs";
 
 import * as d3 from "npm:d3";
 import * as topojson from "npm:topojson";
 
-export default function (Alpine: AlpineInstance) {
+function Globe(Alpine: AlpineInstance) {
   Alpine.directive("globe", directive);
 }
 
@@ -307,3 +308,5 @@ function globe_event_factory(active_country: string) {
     },
   });
 }
+
+export default Globe;
