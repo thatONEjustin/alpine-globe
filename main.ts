@@ -1,8 +1,6 @@
-///
-import type { Alpine as AlpineInstance } from "npm:alpinejs";
-
-import * as d3 from "npm:d3";
-import * as topojson from "npm:topojson";
+import type { Alpine as AlpineInstance } from "npm:alpinejs@^3.14.3";
+import * as d3 from "npm:d3@^7.9.0";
+import * as topojson from "npm:topojson@^3.0.2";
 
 function Globe(Alpine: AlpineInstance) {
   Alpine.directive("globe", directive);
