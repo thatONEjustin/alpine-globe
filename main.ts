@@ -26,7 +26,9 @@ type OptionsObject = {
 
 const directive = async (
   element: HTMLElement,
+  // deno-lint-ignore no-explicit-any
   { expression }: { expression: any },
+  // deno-lint-ignore no-explicit-any
   { Alpine, evaluate }: { Alpine: AlpineInstance; evaluate: any },
 ) => {
   // const modules: Array<SwiperModule> = add_module_from_modifiers(modifiers)
@@ -52,12 +54,14 @@ const directive = async (
 
   await Alpine.$nextTick;
 
+  // deno-lint-ignore no-explicit-any
   const world_data: { json: any; tsv: any } = {
     json: await d3.json(options.world.json),
     tsv: await d3.tsv(options.world.tsv),
   };
 
   const countries_by_id = world_data.tsv.reduce(
+    // deno-lint-ignore no-explicit-any
     (country_list: any, country: any) => {
       country_list[String(country.id)] = country.name;
       return country_list;
@@ -71,6 +75,7 @@ const directive = async (
 
   const globe_element = element.querySelector(globe_svg_id);
 
+  // deno-lint-ignore no-explicit-any
   let delay: any;
   let focused: boolean;
   let is_spinning: boolean = true;
@@ -141,9 +146,11 @@ const directive = async (
     .data(world_topography.features)
     .enter()
     .append("path")
+    // deno-lint-ignore no-explicit-any
     .attr("id", (data: any) => {
       return data.id;
     })
+    // deno-lint-ignore no-explicit-any
     .attr("class", function (data: any) {
       if (countries_by_id[Number(data.id)] == undefined) {
         return "land";
@@ -159,6 +166,7 @@ const directive = async (
 
       return "land";
     })
+    // deno-lint-ignore no-explicit-any
     .attr("d", path).attr("tabindex", function (data: any) {
       if (countries_by_id[Number(data.id)] == undefined) {
         return "-1";
@@ -199,11 +207,13 @@ const directive = async (
           },
         ),
     )
+    // deno-lint-ignore no-explicit-any
     .on("click", (data: any) => {
       const country_name = countries_by_id[Number(data.target.id)];
       proxy_click(country_name.toLowerCase());
       rotateMe(data);
     })
+    // deno-lint-ignore no-explicit-any
     .on("mouseover", function (data: any) {
       const country_name = countries_by_id[Number(data.target.id)];
 
@@ -233,7 +243,9 @@ const directive = async (
     element.dispatchEvent(globe_event_factory(country_name));
   }
 
+  // deno-lint-ignore no-explicit-any
   function rotateMe(clicked_country_data: any) {
+    // deno-lint-ignore no-explicit-any
     const focused_country = world_topography.features.find((country: any) =>
       Number(country.id) === Number(clicked_country_data.target.id)
     );
@@ -248,9 +260,11 @@ const directive = async (
           -p[0],
           -p[1],
         ]);
+        // deno-lint-ignore no-explicit-any
         return function (t: any) {
           projection.rotate(rotate_interpolation(t));
           globe_svg.selectAll("path.land").attr("d", path)
+            // deno-lint-ignore no-explicit-any
             .classed("focused", (data: any, _i: any) => {
               return data.id == focused_country.id ? focused = data : false;
             });
@@ -282,6 +296,7 @@ const directive = async (
   spinGlobe();
 };
 
+// deno-lint-ignore no-explicit-any
 function create_water(svg: any) {
   const water = svg.append("defs")
     .append("radialGradient")
