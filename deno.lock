@@ -3,11 +3,8 @@
   "specifiers": {
     "jsr:@std/assert@1": "1.0.8",
     "jsr:@std/internal@^1.0.5": "1.0.5",
-    "npm:alpinejs@*": "3.14.3",
     "npm:alpinejs@^3.14.3": "3.14.3",
-    "npm:d3@*": "7.9.0_d3-selection@3.0.0",
     "npm:d3@^7.9.0": "7.9.0_d3-selection@3.0.0",
-    "npm:topojson@*": "3.0.2",
     "npm:topojson@^3.0.2": "3.0.2"
   },
   "jsr": {
